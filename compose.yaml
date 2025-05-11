@@ -1,0 +1,26 @@
+name: hadoop-single-node
+services:
+  hdfs:
+    image: hadoop:latest
+    command: bash
+    tty: true
+    stdin_open: true
+    ports:
+    - "8080:9870"
+  
+  hive:
+    image: apache/hive:4.0.1
+    ports:
+    - "10000:10000"
+    - "10002:10002"
+    container_name: hive_container
+    environment:
+      - SERVICE_NAME=hiveserver2
+
+  metastore:
+    image: apache/hive:4.0.1
+    ports:
+    - "9083:9083"
+    container_name: metastore_container
+    environment:
+      - SERVICE_NAME=metastore
